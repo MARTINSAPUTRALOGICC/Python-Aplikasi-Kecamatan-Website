@@ -1,0 +1,61 @@
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Insert Data</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('insert_data_pengajuan.insert_pengajuan') }}" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                       {% for item in data_list1 %}
+                    <div class="form-group">
+                        <label for="{{ item.name }}">{{ item.label }}</label>
+                        {% if item.input_type == "select" %}
+                          <select class="form-control" id="{{ item.name }}" name="{{ item.name }}" required="{{ item.required }}" onchange="updateMax(this)">
+                            {% for option in item.options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+
+                        {% elif item.input_type == "number" %}
+                            <input type="number" class="form-control" id="{{ item.name }}" name="{{ item.name }}" 
+                                min="{{ item.min }}" max="{{ item.max }}" required="{{ item.required }}">
+                        {% endif  %}
+                    </div>
+                    {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">Insert Data</button>
+                    </div>
+
+                     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        function updateMax() {
+                            var selectedOption = $("#nama_barang").val();
+                            var maxQuantity = getMaxQuantity(selectedOption);
+                            $("#jumlah_barang").attr("max", maxQuantity);
+                        }
+
+                        function getMaxQuantity(selectedOption) {
+                            // You may need to fetch the max quantity for the selected option using AJAX or other methods
+                            // For simplicity, let's assume you have a JavaScript object with max quantities for each option
+                            var maxQuantities = {
+                                "Option1": 10,
+                                "Option2": 20,
+                                // Add more options as needed
+                            };
+
+                            return maxQuantities[selectedOption] || 1; // Default to 1 if the option is not found
+                        }
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ... Your HTML code ... -->
+

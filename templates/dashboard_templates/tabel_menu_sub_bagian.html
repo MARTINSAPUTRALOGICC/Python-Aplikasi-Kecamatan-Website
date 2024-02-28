@@ -1,0 +1,31 @@
+    <div class="table-responsive" width="100%">
+
+                <table id="zero_config" class="table table-striped table-bordered">
+    <thead>
+      
+        <tr style="text-align: center; font-size: 16px;">
+            {% for column_name in colum_sub_bagian %}
+                <th>{{ column_name }}</th>
+            {% endfor %}
+            <th>Action</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+{% for row in sub_bagianz %}
+<tr>
+    {% for value in row %}
+    <td style="text-align: center; font-size: 16px">{{ value }}</td>
+    {% endfor %}
+    <td width="300px" style="text-align: center;">
+        <a href="{{ url_for('update_data_sub_bagian.update_sub_bagian', id_sub=row.0) }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{ row.0 }}" style="width: 100px; height: 30px; font-size: 14px; margin-right: 20px;">Sub Bagian</a>
+    </td>
+</tr>
+<!-- Move the modal here -->
+  {% include "dashboard_templates/modal_edit_menu_sub_bagian.html"  %}
+
+
+
+{% endfor %}
+</tbody>
+</table>

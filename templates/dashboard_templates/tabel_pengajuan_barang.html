@@ -1,0 +1,33 @@
+    <div class="table-responsive" width="100%">
+
+                <table id="zero_config" class="table table-striped table-bordered">
+    <thead>
+      
+        <tr style="text-align: center; font-size: 16px;">
+            {% for column_name in colum_names_barang %}
+                <th>{{ column_name }}</th>
+            {% endfor %}
+            <th>Action</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+{% for row in pengajuan %}
+<tr>
+    {% for value in row %}
+    <td style="text-align: center; font-size: 16px">{{ value }}</td>
+    {% endfor %}
+    <td width="300px" style="text-align: center;">
+        <a href="{{ url_for('update_data_pengajuan.update_pengajuan', id_pengajuan =row.0) }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{ row.0 }}" style="width: 80px; height: 30px; font-size: 14px; margin-right: 20px;">Approve</a>
+    <a href="{{ url_for('delete_data_pengajuan.delete_pengajuan', id_pengajuan =row.0) }}" class="btn btn-danger btn-xs" style="width: 80px; height: 30px; font-size: 14px;" onclick="return confirm('Apakah yakin untuk menghapus?')">Delete</a>
+    </td>
+</tr>
+
+<!-- Move the modal here -->
+  {% include "dashboard_templates/modal_edit_pengajuan.html"%}
+
+
+
+{% endfor %}
+</tbody>
+</table>
